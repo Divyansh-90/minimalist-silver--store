@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Login | ELORA</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            background: #f7f5f1;
+            font-family: Arial, sans-serif;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 430px;
+            padding: 35px;
+            background: white;
+            border: 1px solid #e4e0d9;
+        }
+
+        .login-logo {
+            display: block;
+            margin-bottom: 30px;
+            color: #252321;
+            text-decoration: none;
+            font-family: Georgia, serif;
+            font-size: 30px;
+        }
+
+        .login-card h1 {
+            margin-bottom: 10px;
+            font-family: Georgia, serif;
+            font-size: 30px;
+            font-weight: 400;
+        }
+
+        .login-subtitle {
+            margin-bottom: 25px;
+            color: #777;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .login-field {
+            margin-bottom: 18px;
+        }
+
+        .login-field label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .login-field input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d9d5ce;
+            outline: none;
+            background: white;
+        }
+
+        .login-field input:focus {
+            border-color: #85745f;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #252321;
+            background: #252321;
+            color: white;
+            cursor: pointer;
+        }
+
+        .login-button:hover {
+            background: #45413b;
+        }
+
+        .login-message {
+            margin-top: 15px;
+            font-size: 13px;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+        .login-links {
+            margin-top: 22px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .login-links a {
+            color: #514333;
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="login-card">
+        <a href="index.html" class="login-logo">ELORA.</a>
+
+        <h1>Seller Login</h1>
+        <p class="login-subtitle">
+            Sign in to access your jewellery store dashboard.
+        </p>
+
+        <form id="seller-login-form">
+            <div class="login-field">
+                <label for="seller-email">Email Address</label>
+                <input
+                    type="email"
+                    id="seller-email"
+                    name="email"
+                    placeholder="seller@example.com"
+                    autocomplete="username"
+                    required
+                >
+            </div>
+
+            <div class="login-field">
+                <label for="seller-password">Password</label>
+                <input
+                    type="password"
+                    id="seller-password"
+                    name="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="login-button">
+                Sign In
+            </button>
+
+            <p id="seller-login-message"
+               class="login-message"
+               role="status"
+               aria-live="polite"></p>
+        </form>
+
+        <div class="login-links">
+            <a href="index.html">Back to Store</a>
+            <p>
+    New seller?
+    <a href="seller-register.html">Become a Seller</a>
+</p>
+        </div>
+    </main>
+
+    <script type="module" src="seller-auth.js"></script>
+</body>
+</html>

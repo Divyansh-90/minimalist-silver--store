@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover minimalist silver jewellery, elegant rings, necklaces, earrings and bracelets.">
+    <title>Shop Jewellery | Elora</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="site-header">
+        <nav class="navbar">
+            <a href="index.html" class="logo">ELORA<span>.</span></a>
+
+            <button type="button" id="menu-toggle" aria-label="Toggle navigation">
+                ☰
+            </button>
+
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="#shop">Shop</a>
+                <a href="#cart">My Cart (<span id="header-cart-count">0</span>)</a>
+                <a href="#checkout">Checkout</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- Shop Section -->
+        <section class="shop-layout" id="shop">
+            <div class="shop-toolbar">
+                <div>
+                    <p class="eyebrow">THE ELORA COLLECTION</p>
+                    <h2>Shop Jewellery</h2>
+                    <p>Minimal designs. Timeless elegance.</p>
+                    <p id="product-count" aria-live="polite">Loading products...</p>
+                </div>
+
+                <div class="shop-filters">
+                    <input
+                        type="search"
+                        id="product-search"
+                        placeholder="Search jewellery..."
+                        aria-label="Search products"
+                    >
+
+                    <select id="category-filter" aria-label="Filter by category">
+                        <option value="all">All Categories</option>
+                        <option value="ring">Rings</option>
+                        <option value="necklace">Necklaces</option>
+                        <option value="earrings">Earrings</option>
+                        <option value="bracelet">Bracelets</option>
+                        <option value="pendant">Pendants</option>
+                    </select>
+
+                    <select id="sort-filter" aria-label="Sort products">
+                        <option value="default">Sort: Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="name">Name: A to Z</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="consumer-product-grid" class="product-grid">
+                <p>Loading jewellery collection...</p>
+            </div>
+
+            <div id="empty-products" class="empty-state" hidden>
+                <h3>No products found</h3>
+                <p>Try another search or category.</p>
+            </div>
+
+            <p id="shop-message" role="status" aria-live="polite"></p>
+        </section>
+
+        <!-- Cart Section -->
+        <section class="cart-section" id="cart">
+            <div class="cart-heading">
+                <div>
+                    <p class="eyebrow">YOUR SELECTION</p>
+                    <h2>Shopping Cart</h2>
+                </div>
+                <p id="cart-item-count">0 items</p>
+            </div>
+
+            <div class="cart-layout">
+                <div class="cart-panel">
+                    <div id="cart-items" aria-live="polite">
+                        <p class="empty-cart">Your cart is empty.</p>
+                    </div>
+                </div>
+
+                <aside class="cart-summary">
+                    <h3>Order Summary</h3>
+
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="cart-subtotal">₹0</span>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>Delivery</span>
+                        <span id="delivery-charge">₹0</span>
+                    </div>
+
+                    <div class="summary-row summary-total">
+                        <strong>Total</strong>
+                        <strong id="cart-total">₹0</strong>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="checkout-button"
+                        id="go-to-checkout"
+                    >
+                        Proceed to Checkout
+                    </button>
+
+                    <p class="secure-note">
+                        Review your items before placing your order.
+                    </p>
+                </aside>
+            </div>
+        </section>
+
+        <!-- Checkout Section -->
+        <section class="checkout-section" id="checkout">
+            <div class="checkout-intro">
+                <p class="eyebrow">ALMOST YOURS</p>
+                <h2>Complete Your Order</h2>
+                <p>Enter your delivery details below.</p>
+            </div>
+
+            <div class="checkout-layout">
+                <div class="form-card">
+                    <h3>Delivery Information</h3>
+
+                    <form id="checkout-form">
+                        <div class="form-group">
+                            <label for="customer-name">Full Name</label>
+                            <input
+                                type="text"
+                                id="customer-name"
+                                name="customerName"
+                                placeholder="Enter your full name"
+                                autocomplete="name"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="customer-mobile">Mobile Number</label>
+                            <input
+                                type="tel"
+                                id="customer-mobile"
+                                name="customerMobile"
+                                placeholder="10-digit mobile number"
+                                inputmode="numeric"
+                                pattern="[6-9][0-9]{9}"
+                                maxlength="10"
+                                autocomplete="tel"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="customer-address">Full Delivery Address</label>
+                            <textarea
+                                id="customer-address"
+                                name="customerAddress"
+                                placeholder="House number, street, city, state and PIN code"
+                                rows="4"
+                                autocomplete="street-address"
+                                required
+                            ></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="payment-method">Payment Method</label>
+                            <select id="payment-method" name="paymentMethod" required>
+                               <option value="cod">Cash on Delivery</option>
+                                <option value="UPI">UPI (demo only)</option>
+                            </select>
+                        </div>
+
+                        <p id="checkout-message" role="status" aria-live="polite"></p>
+
+                        <button type="submit" class="checkout-button">
+                            Place Order
+                        </button>
+                    </form>
+                </div>
+
+                <aside class="checkout-order-summary">
+                    <h3>Your Order</h3>
+
+                    <p>
+                        Items:
+                        <strong id="checkout-item-count">0</strong>
+                    </p>
+
+                    <p>
+                        Total:
+                        <strong id="checkout-total">₹0</strong>
+                    </p>
+
+                    <p>
+                        UPI option is for demonstration only. No real payment
+                        will be collected by this page.
+                    </p>
+                </aside>
+            </div>
+        </section>
+
+        <!-- Order Confirmation -->
+        <section
+            id="order-confirmation"
+            class="order-confirmation"
+            hidden
+            aria-live="polite"
+        >
+            <div class="confirmation-icon">✓</div>
+
+            <p class="eyebrow">ORDER RECEIVED</p>
+            <h2>Thank You for Shopping!</h2>
+            <p>Your demo order has been saved in this browser.</p>
+
+            <div class="confirmation-details">
+                <div>
+                    <span>Order ID</span>
+                    <strong id="confirmation-order-id">—</strong>
+                </div>
+
+                <div>
+                    <span>Order Total</span>
+                    <strong id="confirmation-total">₹0</strong>
+                </div>
+
+                <div>
+                    <span>Payment Method</span>
+                    <strong id="confirmation-payment">—</strong>
+                </div>
+
+                <div>
+                    <span>Payment Status</span>
+                    <strong id="confirmation-status">—</strong>
+                </div>
+            </div>
+
+            <a href="#shop" class="checkout-button">Continue Shopping</a>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>ELORA — Minimalist Jewellery</p>
+        <p>Timeless designs for everyday elegance.</p>
+        <a href="index.html">Back to Home</a>
+    </footer>
+
+</body>
+</html>

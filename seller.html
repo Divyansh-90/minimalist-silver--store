@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ELORA jewellery seller dashboard">
+    <title>Seller Dashboard | ELORA</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .seller-page {
+            max-width: 1200px;
+            margin: auto;
+            padding: 35px 5%;
+        }
+
+        .seller-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .seller-logo {
+            font-size: 27px;
+            text-decoration: none;
+            color: #222;
+            font-family: Georgia, serif;
+        }
+
+        .seller-logo span { color: #a17b50; }
+
+        .seller-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .seller-actions a,
+        .seller-actions button {
+            padding: 11px 16px;
+            border: 1px solid #222;
+            background: white;
+            color: #222;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .seller-welcome { padding: 35px 0; }
+
+        .seller-welcome h1 {
+            font-family: Georgia, serif;
+            font-size: clamp(30px, 5vw, 42px);
+            font-weight: 400;
+        }
+
+        .seller-orders-section { padding: 30px 0; }
+
+        .seller-section-heading { margin-bottom: 25px; }
+
+        .seller-section-heading h2 {
+            font-family: Georgia, serif;
+            font-size: 30px;
+            font-weight: 400;
+        }
+
+        .seller-section-heading p:last-child {
+            color: #777;
+            font-size: 13px;
+        }
+
+        #seller-product-form {
+            display: grid;
+            gap: 12px;
+            max-width: 650px;
+            margin-bottom: 30px;
+        }
+
+        #seller-product-form label {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        #seller-product-form input,
+        #seller-product-form select,
+        #seller-product-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            background: white;
+            font: inherit;
+            box-sizing: border-box;
+        }
+
+        #seller-product-form button {
+            padding: 13px 18px;
+            border: 1px solid #222;
+            background: #222;
+            color: white;
+            cursor: pointer;
+        }
+
+        #seller-product-form button:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        #seller-product-message,
+        #product-image-preview-message {
+            font-size: 13px;
+            overflow-wrap: anywhere;
+        }
+
+        #product-image-preview-container {
+            display: none;
+            margin: 10px 0;
+        }
+
+        #product-image-preview {
+            display: block;
+            width: 180px;
+            height: 180px;
+            max-width: 100%;
+            object-fit: cover;
+            border: 1px solid #ddd;
+        }
+
+        .seller-help {
+            margin: 0;
+            color: #777;
+            font-size: 12px;
+        }
+
+        #seller-products-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .seller-product-card {
+            padding: 16px;
+            border: 1px solid #ddd;
+            background: white;
+            overflow-wrap: anywhere;
+        }
+
+        .seller-product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 12px;
+        }
+
+        .seller-product-card h3 { font-size: 17px; }
+
+        .seller-product-card p {
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .seller-product-card button {
+            padding: 10px 15px;
+            border: 0;
+            background: #9f2424;
+            color: white;
+            cursor: pointer;
+        }
+
+        .seller-order-stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .seller-stat-card {
+            padding: 22px;
+            background: #f8f5f0;
+            border: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .seller-stat-card span {
+            font-size: 12px;
+            color: #777;
+        }
+
+        .seller-stat-card strong {
+            font-size: 28px;
+            font-weight: 500;
+        }
+
+        .seller-orders-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .seller-orders-toolbar h3 {
+            font-family: Georgia, serif;
+            font-size: 24px;
+            font-weight: 400;
+        }
+
+        #seller-order-filter,
+        .seller-status-select {
+            padding: 11px;
+            border: 1px solid #ddd;
+            background: white;
+            max-width: 100%;
+        }
+
+        #seller-orders-list { display: grid; gap: 18px; }
+
+        .seller-order-card {
+            padding: 22px;
+            border: 1px solid #ddd;
+            background: white;
+            min-width: 0;
+        }
+
+        .seller-order-card-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .seller-order-customer p {
+            margin: 8px 0;
+            font-size: 13px;
+            overflow-wrap: anywhere;
+        }
+
+        .seller-order-items {
+            padding-left: 20px;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .seller-order-total { margin: 20px 0; }
+
+        .seller-status-label {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .seller-save-status {
+            margin-top: 12px;
+            padding: 12px 20px;
+            background: #222;
+            color: white;
+            border: 1px solid #222;
+            cursor: pointer;
+        }
+
+        .seller-no-orders {
+            padding: 25px;
+            background: #f8f5f0;
+            color: #777;
+        }
+
+        .seller-footer {
+            padding: 25px 5%;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            color: #777;
+            font-size: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .seller-page { padding: 25px 5%; }
+            .seller-order-stats { grid-template-columns: 1fr; }
+            .seller-order-card { padding: 16px; }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="seller-page">
+
+        <nav class="seller-topbar">
+            <a href="index.html" class="seller-logo">ELORA<span>.</span></a>
+
+            <div class="seller-actions">
+                <a href="consumer.html">View Store</a>
+                <button type="button" id="seller-logout">Logout</button>
+            </div>
+        </nav>
+
+        <section class="seller-welcome">
+            <p class="eyebrow">SELLER PANEL</p>
+            <h1>Seller Dashboard</h1>
+            <p>Manage your jewellery products and customer orders.</p>
+        </section>
+
+        <!-- PRODUCT MANAGEMENT -->
+        <section class="seller-orders-section" id="seller-products">
+            <div class="seller-section-heading">
+                <p class="eyebrow">PRODUCT MANAGEMENT</p>
+                <h2>My Products</h2>
+                <p>Add jewellery and manage your own listings.</p>
+            </div>
+
+            <form id="seller-product-form">
+                <label for="product-name">Product Name</label>
+                <input id="product-name" type="text" maxlength="100" required>
+
+                <label for="product-category">Category</label>
+                <select id="product-category" required>
+                    <option value="">Select category</option>
+                    <option value="necklace">Necklace</option>
+                    <option value="earrings">Earrings</option>
+                    <option value="bracelet">Bracelet</option>
+                    <option value="ring">Ring</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label for="product-price">Price (₹)</label>
+                <input id="product-price" type="number" min="1" step="0.01" required>
+
+                <label for="product-description">Description</label>
+                <textarea id="product-description" maxlength="1000" required></textarea>
+
+                <label for="product-image">Choose Product Photo</label>
+                <input
+                    id="product-image"
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,image/gif"
+                    required
+                >
+
+                <p class="seller-help">
+                    Choose a JPG, PNG, WEBP or GIF image. Maximum 5 MB.
+                </p>
+
+                <div id="product-image-preview-container">
+                    <img id="product-image-preview" alt="Selected product photo preview">
+                    <p id="product-image-preview-message" role="status"></p>
+                </div>
+
+                <button type="submit">Add Product</button>
+                <p id="seller-product-message" role="status" aria-live="polite"></p>
+            </form>
+
+            <div id="seller-products-list" aria-live="polite">
+                <p>Your products will appear here.</p>
+            </div>
+        </section>
+
+        <!-- ORDER MANAGEMENT -->
+        <section class="seller-orders-section" id="seller-orders">
+            <div class="seller-section-heading">
+                <p class="eyebrow">ORDER MANAGEMENT</p>
+                <h2>Customer Orders</h2>
+                <p>View customer orders and manage their status.</p>
+            </div>
+
+            <div class="seller-order-stats">
+                <div class="seller-stat-card">
+                    <span>Total Orders</span>
+                    <strong id="seller-total-orders">0</strong>
+                </div>
+
+                <div class="seller-stat-card">
+                    <span>Pending</span>
+                    <strong id="seller-pending-orders">0</strong>
+                </div>
+
+                <div class="seller-stat-card">
+                    <span>Delivered</span>
+                    <strong id="seller-delivered-orders">0</strong>
+                </div>
+            </div>
+
+            <div class="seller-orders-toolbar">
+                <h3>All Orders</h3>
+
+                <select id="seller-order-filter" aria-label="Filter orders">
+                    <option value="all">All Orders</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Confirmed">Confirmed</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Delivered">Delivered</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+            </div>
+
+            <div id="seller-orders-list" aria-live="polite">
+                <p>No orders loaded yet.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="seller-footer">
+        <p>ELORA — Minimalist Jewellery</p>
+        <p>Seller dashboard</p>
+    </footer>
+
+    <script type="module" src="seller-auth.js"></script>
+    <script src="seller-orders.js"></script>
+    <script type="module" src="seller-products.js"></script>
+
+    <script>
+        const imageInput = document.getElementById("product-image");
+        const previewContainer = document.getElementById("product-image-preview-container");
+        const previewImage = document.getElementById("product-image-preview");
+        const previewMessage = document.getElementById("product-image-preview-message");
+
+        let previewObjectURL = null;
+
+        imageInput.addEventListener("change", () => {
+            const file = imageInput.files && imageInput.files[0];
+
+            if (previewObjectURL) {
+                URL.revokeObjectURL(previewObjectURL);
+                previewObjectURL = null;
+            }
+
+            previewImage.removeAttribute("src");
+            previewContainer.style.display = "none";
+            previewMessage.textContent = "";
+
+            if (!file) return;
+
+            const allowedTypes = [
+                "image/jpeg",
+                "image/png",
+                "image/webp",
+                "image/gif"
+            ];
+
+            if (!allowedTypes.includes(file.type)) {
+                imageInput.value = "";
+                previewMessage.textContent = "Please select a JPG, PNG, WEBP or GIF image.";
+                previewContainer.style.display = "block";
+                return;
+            }
+
+            if (file.size > 5 * 1024 * 1024) {
+                imageInput.value = "";
+                previewMessage.textContent = "Image must be 5 MB or smaller.";
+                previewContainer.style.display = "block";
+                return;
+            }
+
+            previewObjectURL = URL.createObjectURL(file);
+            previewImage.src = previewObjectURL;
+            previewContainer.style.display = "block";
+            previewMessage.textContent = "Photo selected. Save/upload support must be enabled in seller-products.js.";
+        });
+    </script>
+</body>
+</html>

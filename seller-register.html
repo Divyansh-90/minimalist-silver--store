@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Registration | Minimalist Silver Store</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            background: #f5f3ef;
+            color: #262626;
+            font-family: Arial, sans-serif;
+        }
+
+        .register-card {
+            width: 100%;
+            max-width: 420px;
+            padding: 32px;
+            background: white;
+            border: 1px solid #e6e1d9;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px #0000000a;
+        }
+
+        h1 {
+            margin-top: 0;
+            font-size: 25px;
+        }
+
+        p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        label {
+            display: block;
+            margin: 17px 0 7px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 13px;
+            border: 0;
+            border-radius: 7px;
+            background: #292929;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            opacity: .6;
+            cursor: wait;
+        }
+
+        #register-message {
+            overflow-wrap: anywhere;
+            font-size: 14px;
+        }
+
+        a {
+            color: #292929;
+        }
+    </style>
+</head>
+<body>
+    <main class="register-card">
+        <h1>Become a Seller</h1>
+        <p>Create your seller account. Your access will remain pending until the store admin approves it.</p>
+
+        <form id="seller-register-form">
+            <label for="seller-name">Full Name</label>
+            <input id="seller-name" type="text"
+                   maxlength="80" autocomplete="name" required>
+
+            <label for="seller-email">Email Address</label>
+            <input id="seller-email" type="email"
+                   autocomplete="email" required>
+
+            <label for="seller-password">Password</label>
+            <input id="seller-password" type="password"
+                   minlength="6" autocomplete="new-password" required>
+
+            <button id="register-button" type="submit">
+                Create Seller Account
+            </button>
+        </form>
+
+        <p id="register-message" role="status" aria-live="polite"></p>
+        <p>Already registered? <a href="seller-login.html">Seller Login</a></p>
+    </main>
+
+    <script type="module" src="seller-register.js"></script>
+</body>
+</html>
